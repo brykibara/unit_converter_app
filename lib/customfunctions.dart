@@ -27,10 +27,10 @@ String? converterUnit(
 
   double toFactor = 1.0;
   if (toUnit == 'Cups') toFactor = 236.588;
-  if (toUnit == 'Tablespoon') toFactor = 14.7868;
-  if (toUnit == 'Teaspoons') fromFactor = 4.92892;
-  if (toUnit == 'Milliliters') fromFactor = 1.0;
-  if (toUnit == 'Grams') fromFactor = 1.0;
+  if (toUnit == 'Tablespoons') toFactor = 14.7868;
+  if (toUnit == 'Teaspoons') toFactor = 4.92892;
+  if (toUnit == 'Milliliters') toFactor = 1.0;
+  if (toUnit == 'Grams') toFactor = 1.0;
 
   double inMl = inputValue * fromFactor;
   double result = inMl / toFactor;
