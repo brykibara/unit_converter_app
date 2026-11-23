@@ -16,23 +16,29 @@ String? converterUnit(
   String? fromUnit,
   String? toUnit,
 ) {
-  if (inputValue == null) return '0';
+  if (inputValue == null || fromUnit == null || toUnit == null) {
+    return '0.00';
+  }
 
-  double fromFactor = 1.0;
-  if (fromUnit == 'Cups') fromFactor = 236.588;
-  if (fromUnit == 'Tablespoons') fromFactor = 14.7868;
-  if (fromUnit == 'Teaspoons') fromFactor = 4.92892;
-  if (fromUnit == 'Milliliters') fromFactor = 1.0;
-  if (fromUnit == 'Grams') fromFactor = 1.0;
+  String from = fromUnit.trim().toLowerCase();
+  String to = toUnit.trim().toLowerCase();
 
-  double toFactor = 1.0;
-  if (toUnit == 'Cups') toFactor = 236.588;
-  if (toUnit == 'Tablespoons') toFactor = 14.7868;
-  if (toUnit == 'Teaspoons') toFactor = 4.92892;
-  if (toUnit == 'Milliliters') toFactor = 1.0;
-  if (toUnit == 'Grams') toFactor = 1.0;
+  const Map<String, double> factors = {
+    'cups': 236.588,
+    'tablespoons': 14.7868,
+    'teaspoons': 4.92892,
+    'milliliters': 1.0,
+  };
 
-  double inMl = inputValue * fromFactor;
-  double result = inMl / toFactor;
+  if (from == 'grams' || to == 'grams') {
+    return 'Grams conversion requires an ingredient';
+  }
+
+  if (!factors.containsKey(from) || !factors.containsKey(to)) {
+    return 'Invalid unit';
+  }
+
+  double result = (inputValue * factors[from]!) / factors[to]!;
+
   return result.toStringAsFixed(2);
 }
